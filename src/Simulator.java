@@ -39,8 +39,6 @@ public class Simulator {
             roadSegments.add(new Road(400, true));
 
         }
-
-        System.out.println(roadSegments.size());
     }
 
     public void simulate(int numSteps) {
@@ -66,6 +64,8 @@ public class Simulator {
             }
 
         }
+
+        // TODO skrive statistiske data
 
     }
 

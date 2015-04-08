@@ -25,11 +25,11 @@ public class Road {
             System.out.println("Skjekker biler i segmentet " + i);
             cars.get(i).roomForNewCar();
 
-        // Loope gjennom liste av biler i segment og flytte de
-        // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
-        // TODO sjekke om ende av segment
+            // Loope gjennom liste av biler i segment og flytte de
+            // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
+            // TODO sjekke om ende av segment
 
-
+        }
     }
 
     public double distanceToEnd() {
@@ -55,11 +55,12 @@ public class Road {
     }
 
     public boolean roomForNewCar() {
+        boolean svar = false;
         if (distanceToNextCar(0) > 5) {
             //Plass til ny bil
-
+            svar = true;
         }
-        return true;
+        return svar;
     }
 
     public void makeNewCar() {
