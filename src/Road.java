@@ -54,9 +54,12 @@ public class Road {
     public boolean roomForNewCar() {
         if(distanceToNextCar(0)>5){
             //Plass til ny bil
-            cars.add(new Car());
+
         }
+        return true;
     }
+
+
 
 
 }
