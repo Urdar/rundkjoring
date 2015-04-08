@@ -13,7 +13,7 @@ public class Simulator {
 
     public static void main(String[] args) {
         Simulator simulator = new Simulator();
-        simulator.simulate(1000); // run for 1000 steps
+        simulator.simulate(210); // run for 1000 steps
     }
 
 
@@ -32,11 +32,11 @@ public class Simulator {
         // Opprette veisegmenter.
         // Segmenter i rundingen
         for (int i = 0; i < 4; i++) {
-            roadSegments.add(new Road(200, false));
+            roadSegments.add(new Road(100, false));
         }
         // Inn- og utkjøring fra rundingen
         for (int i = 0; i < 4; i++) {
-            roadSegments.add(new Road(400, true));
+            roadSegments.add(new Road(200, true));
 
         }
     }
@@ -56,7 +56,7 @@ public class Simulator {
 
         for (int i = 0; i < roadSegments.size(); i++) {
             System.out.println("Flytter biler i segment " + i);
-            roadSegments.get(i).moveVehicles();
+            roadSegments.get(i).moveCar();
 
             if (i > 3){
                 // accessroad, forsøke å lage ny bil

@@ -9,7 +9,7 @@ public class    Car {
     boolean drivingOut;
 
     // Distanse kjørt på vegsegment
-    double distance;
+    int distance;
 
     // Aggresivitet. Avhengig av denne tar bilføreren risikoer, kjører fortere, mindre avstand til neste bil..
     int aggressiveness;
@@ -18,17 +18,17 @@ public class    Car {
 
     int speed;
 
-    public double getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
     public Car() {
         this.drivingOut = false;
-        this.distance = 0;
+        this.distance = 1;
         this.exitNo = randInt(0,4);
         this.speed = randInt(50, 70);
         this.aggressiveness = randInt(0,10);
