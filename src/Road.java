@@ -19,21 +19,47 @@ public class Road {
     }
 
 
-    public void moveCar() {
+    public void moveCar(int segmentNo) {
 
         for (int i = 0; i < cars.size(); i++) {
 
-            if (isAtSegmentEnd(cars.get(i).getDistance())){
+            if (isAtSegmentEnd(cars.get(i).getDistance())) {
                 System.out.println("Bilen har nådd enden");
 
-                // Hvis accessroad -> sjekke om plass i runding
+                if (this.accessRoad) {
+                    if (cars.get(i).getDrivingOut()) {
+                        // Den har fullført runden sin, slette den
+                        cars.remove(i);
+                    } else {
+                        // Den har kjørt inn til runding, plassere den i rett segment
+
+
+                        switch (segmentNo) {
+                            case 4:
+                            // Sjekke 3
+                                break;
+                            case 5:
+                            // Sjekke 0
+                                break;
+                            case 6:
+                            // Sjekke 1
+                                break;
+                            case 7:
+                            // Sjekke 2
+                                break;
+                        }
+                    }
+
+                } else {
+
+                }
+
                 // Hvis accessroad og drivingOut -> slett bil
 
                 // Hvis runding og ved rett exit
                 // Hvis runding og ikke ved rett exit
 
 
-                cars.remove(i);
             } else {
                 // Bilen har ikke nådd ende av segment, skal kjøre videre
                 // Sjekke om det er plass foran for å flytte fremover
@@ -52,13 +78,6 @@ public class Road {
             }
 
 
-
-
-
-
-
-
-
             // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
             // TODO sjekke om ende av segment
 
@@ -66,7 +85,7 @@ public class Road {
     }
 
     public double distanceToEnd(int current) {
-        return length-current;
+        return length - current;
     }
 
     public int distanceToNextCar(int start) {
@@ -107,9 +126,9 @@ public class Road {
 
     }
 
-    public boolean isAtSegmentEnd(int currentPosition){
+    public boolean isAtSegmentEnd(int currentPosition) {
 
-        if (currentPosition == length){
+        if (currentPosition == length) {
             return true;
         } else {
             return false;

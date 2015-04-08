@@ -56,7 +56,7 @@ public class Simulator {
 
         for (int i = 0; i < roadSegments.size(); i++) {
             System.out.println("Flytter biler i segment " + i);
-            roadSegments.get(i).moveCar();
+            roadSegments.get(i).moveCar(i);
 
             if (i > 3){
                 // accessroad, forsøke å lage ny bil

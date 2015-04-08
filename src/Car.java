@@ -22,6 +22,14 @@ public class    Car {
         return distance;
     }
 
+    public boolean getDrivingOut() {
+        return drivingOut;
+    }
+
+    public void setDrivingOut(boolean drivingOut) {
+        this.drivingOut = drivingOut;
+    }
+
     public void setDistance(int distance) {
         this.distance = distance;
     }
@@ -40,4 +48,6 @@ public class    Car {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
+
+
 }
