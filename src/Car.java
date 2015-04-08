@@ -33,8 +33,4 @@ public class    Car {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
-
-    public void roomForNewCar() {
-System.out.println("hei jens");
-    }
 }

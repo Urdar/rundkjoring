@@ -23,7 +23,7 @@ public class Road {
 
         for (int i = 0; i < cars.size(); i++) {
             System.out.println("Skjekker biler i segmentet " + i);
-            cars.get(i).roomForNewCar();
+
 
             // Loope gjennom liste av biler i segment og flytte de
             // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
