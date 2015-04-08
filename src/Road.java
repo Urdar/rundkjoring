@@ -62,8 +62,10 @@ public class Road {
     public void makeNewCar() {
 
         if (distanceToNextCar(0)>5) {
-            System.out.println("lager ny bil");
+            System.out.println("Lager ny bil");
             cars.add(new Car());
+        } else {
+            System.out.println("Ikke plass til ny bil");
         }
 
 
