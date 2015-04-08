@@ -8,21 +8,19 @@ public class Road {
 
     private int length;
 
-    private Road startRoad;
-    private Road endRoad;
-
-    private Road exitRoad;
+    private boolean accessRoad;
 
     // ArrayList of vehicles within road segment
     private ArrayList<Car> cars = new ArrayList<Car>();
 
-    public Road(int length) {
+    public Road(int length, boolean accessroad) {
         this.length = length;
-
+        this.accessRoad = accessroad;
     }
 
 
     public void moveVehicles() {
+
 
         // Loope gjennom liste av biler i segment og flytte de
         // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
@@ -36,30 +34,42 @@ public class Road {
         // TODO regne ut distanse til enden
     }
 
-    public double distanceToNextCar(int start) {
+    public int distanceToNextCar(int start) {
 
-        double distanceToNextCar = 0;
+        double distanceToNextCar = 999;
 
         for (int i = 0; i < this.cars.size(); i++) {
-            double distance = this.length - cars.get(i).distance;
-            if (distance>distanceToNextCar){
+
+            double distance = cars.get(i).distance-start;
+
+            if (distance < distanceToNextCar) {
                 distanceToNextCar = distance;
             }
 
         }
-        return distanceToNextCar;
+        return (int) distanceToNextCar;
 
     }
 
     public boolean roomForNewCar() {
-        if(distanceToNextCar(0)>5){
+        if (distanceToNextCar(0) > 5) {
             //Plass til ny bil
 
         }
         return true;
     }
 
+    public void makeNewCar() {
 
+        if (distanceToNextCar(0)>5) {
+            System.out.println("lager ny bil");
+            cars.add(new Car());
+        }
+
+
+        // Sjekke om plass til ny bil
+        // Lage ny bil hvis plass
+    }
 
 
 }

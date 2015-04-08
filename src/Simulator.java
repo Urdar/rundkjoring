@@ -32,11 +32,11 @@ public class Simulator {
         // Opprette veisegmenter.
         // Segmenter i rundingen
         for (int i = 0; i < 4; i++) {
-            roadSegments.add(new Road(200));
+            roadSegments.add(new Road(200, false));
         }
         // Inn- og utkjøring fra rundingen
         for (int i = 0; i < 4; i++) {
-            roadSegments.add(new Road(400));
+            roadSegments.add(new Road(400, true));
 
         }
 
@@ -59,6 +59,12 @@ public class Simulator {
         for (int i = 0; i < roadSegments.size(); i++) {
             System.out.println("Flytter biler i segment " + i);
             roadSegments.get(i).moveVehicles();
+
+            if (i > 3){
+                // accessroad, forsøke å lage ny bil
+                roadSegments.get(i).makeNewCar();
+            }
+
         }
 
     }
