@@ -35,6 +35,6 @@ public class    Car {
     }
 
     public void roomForNewCar() {
-
+System.out.println("hei");
     }
 }
