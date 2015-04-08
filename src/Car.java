@@ -18,6 +18,13 @@ public class    Car {
 
     int speed;
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public Car() {
         this.drivingOut = false;

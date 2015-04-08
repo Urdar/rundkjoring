@@ -22,8 +22,10 @@ public class Road {
     public void moveVehicles() {
 
         for (int i = 0; i < cars.size(); i++) {
-            System.out.println("Skjekker biler i segmentet " + i);
 
+
+
+cars.get(i).setDistance(cars.get(i).getDistance()+1);
 
             // Loope gjennom liste av biler i segment og flytte de
             // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
