@@ -36,12 +36,13 @@ public class    Car {
         this.distance = distance;
     }
 
-    public Car() {
+    public Car(int segment) {
         this.drivingOut = false;
         this.distance = 1;
         this.exitNo = randInt(0,4);
         this.speed = randInt(50, 70);
         this.aggressiveness = randInt(0,10);
+        this.cameFromSegment = segment;
     }
 
     public static int randInt(int min, int max) {

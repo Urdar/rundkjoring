@@ -105,10 +105,10 @@ public class Road {
         return svar;
     }
 
-    public void makeNewCar() {
+    public void makeNewCar(int gjeldendeSegment) {
         if (distanceToNextCar(0) > 5) {
             System.out.println("Lager ny bil");
-            cars.add(new Car());
+            cars.add(new Car(gjeldendeSegment));
         } else {
             System.out.println("Ikke plass til ny bil");
         }

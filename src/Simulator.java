@@ -69,7 +69,7 @@ public class Simulator {
 
             if (i > 3){
                 // accessroad, forsøke å lage ny bil
-                roadSegments.get(i).makeNewCar();
+                roadSegments.get(i).makeNewCar(1);
             }
 
         }
