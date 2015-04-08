@@ -18,50 +18,41 @@ public class Road {
         this.accessRoad = accessroad;
     }
 
+    public void addCar(Car car) {
+        cars.add(car);
+    }
 
-    public void moveCar(int segmentNo) {
+    public ArrayList<Car> moveCar() {
+        ArrayList<Car> returnedCars = new ArrayList<Car>();
 
         for (int i = 0; i < cars.size(); i++) {
-
             if (isAtSegmentEnd(cars.get(i).getDistance())) {
                 System.out.println("Bilen har nådd enden");
 
                 if (this.accessRoad) {
                     if (cars.get(i).getDrivingOut()) {
                         // Den har fullført runden sin, slette den
-                        cars.remove(i);
+                      cars.remove(i);
                     } else {
-                        // Den har kjørt inn til runding, plassere den i rett segment
+                        // Den har kommet til endes på segment og skal videre
 
+                        returnedCars.add(cars.get(i));
 
-                        switch (segmentNo) {
-                            case 4:
-                            // Sjekke 3
-                                break;
-                            case 5:
-                            // Sjekke 0
-                                break;
-                            case 6:
-                            // Sjekke 1
-                                break;
-                            case 7:
-                            // Sjekke 2
-                                break;
-                        }
+                     cars.remove(i);
                     }
 
                 } else {
-
+                // Bilen kjører inni sirkelen og har kommet til endes på segment
+                    // Den skal videre
+                    returnedCars.add(cars.get(i));
+                  cars.remove(i);
                 }
 
-                // Hvis accessroad og drivingOut -> slett bil
 
-                // Hvis runding og ved rett exit
-                // Hvis runding og ikke ved rett exit
 
 
             } else {
-                // Bilen har ikke nådd ende av segment, skal kjøre videre
+                // Bilen har ikke nådd ende av segment, skal bare kjøre videre
                 // Sjekke om det er plass foran for å flytte fremover
                 System.out.println("Bil " + i + " har distanse " + cars.get(i).getDistance());
 
@@ -82,6 +73,7 @@ public class Road {
             // TODO sjekke om ende av segment
 
         }
+        return returnedCars;
     }
 
     public double distanceToEnd(int current) {

@@ -18,6 +18,8 @@ public class    Car {
 
     int speed;
 
+    int cameFromSegment;
+
     public int getDistance() {
         return distance;
     }
@@ -49,5 +51,11 @@ public class    Car {
         return randomNum;
     }
 
+    public int getCameFromSegment() {
+        return cameFromSegment;
+    }
 
+    public void setCameFromSegment(int cameFromSegment) {
+        this.cameFromSegment = cameFromSegment;
+    }
 }
