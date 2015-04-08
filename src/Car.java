@@ -19,11 +19,12 @@ public class Car {
     int speed;
 
 
-    public Car(int aggressiveness) {
+    public Car() {
         this.drivingOut = false;
         this.distance = 0;
         this.exitNo = randInt(0,4);
-        this.speed = randInt(50,70);
+        this.speed = randInt(50, 70);
+        this.aggressiveness = randInt(0,10);
     }
 
     public static int randInt(int min, int max) {

@@ -39,6 +39,7 @@ public class Road {
     public double distanceToNextCar(int start) {
 
         double distanceToNextCar = 0;
+
         for (int i = 0; i < this.cars.size(); i++) {
             double distance = this.length - cars.get(i).distance;
             if (distance>distanceToNextCar){
@@ -51,7 +52,10 @@ public class Road {
     }
 
     public boolean roomForNewCar() {
-        return true;
+        if(distanceToNextCar(0)>5){
+            //Plass til ny bil
+            cars.add(new Car());
+        }
     }
 
 
