@@ -4,7 +4,7 @@ import java.util.Random;
  * Created by jens on 08.04.15.
  */
 
-public class Car {
+public class    Car {
 
     boolean drivingOut;
 
@@ -32,5 +32,9 @@ public class Car {
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
+    }
+
+    public void roomForNewCar() {
+
     }
 }
