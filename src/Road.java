@@ -22,15 +22,28 @@ public class Road {
         cars.add(car);
     }
 
-    public ArrayList<Car> moveCar() {
+    public ArrayList<Car> moveCar(int segmentNo) {
+
         ArrayList<Car> returnedCars = new ArrayList<Car>();
 
-        for (int i = 0; i < cars.size(); i++) {
-            if (isAtSegmentEnd(cars.get(i).getDistance())) {
-                returnedCars.add(cars.get(i));
+        System.out.println("Biler: " + cars.size());
 
+        for (int i = 0; i < cars.size(); i++) {
+
+            System.out.println("Èn skal kjøre av på vei " + cars.get(i).exitNo);
+            // Flytter bil 1 frem
+            // TODO sjekke om det er plass etc...
+            cars.get(i).setDistance(cars.get(i).getDistance() + 1);
+
+
+            // Hvis bil er på ende av segment
+            if (isAtSegmentEnd(cars.get(i).getDistance())) {
+                cars.get(i).setCameFromSegment(segmentNo);
+                returnedCars.add(cars.get(i));
+                cars.remove(i);
             }
         }
+
         return returnedCars;
     }
 
@@ -65,10 +78,10 @@ public class Road {
 
     public void makeNewCar(int gjeldendeSegment) {
         if (distanceToNextCar(0) > 5) {
-            System.out.println("Lager ny bil");
+            System.out.println("Ny bil kom på veien!");
             cars.add(new Car(gjeldendeSegment));
         } else {
-            System.out.println("Ikke plass til ny bil");
+            // System.out.println("Ikke plass til ny bil");
         }
     }
 

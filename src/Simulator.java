@@ -6,14 +6,20 @@ import java.util.ArrayList;
  */
 
 
-// TODO skal kunne kjøre simulering over viss tid, finne throughoutput
-// TODO skal kunne simulere "ekte" kjøring, dvs ikke-perfekt kjøring, kanskje en bil kjører inn i rundkjøring på et tidspunkt den ikke burde, ikke
+// TODO Justere steps i forhold til tid etc
+// TODO Kontroll på når/hyppighet av nye biler
+// TODO Integrere fart og aksellerasjon
+// TODO Biler må holde vikeplikten
+// TODO Lagre data til fil for senere analyse
+// TODO Grafisk fremstilling
+// TODO Evnt skal kunne simulere "ekte" kjøring, dvs ikke-perfekt kjøring, kanskje en bil kjører inn i rundkjøring på et tidspunkt den ikke burde etc
 
 public class Simulator {
 
     public static void main(String[] args) {
         Simulator simulator = new Simulator();
-        simulator.simulate(15); // run for 1000 steps
+        simulator.simulate(100); // run for xxx steps
+        System.out.println("\n" + throughoutput + " biler kjørte gjennom rundkjøringen");
     }
 
 
@@ -24,15 +30,23 @@ public class Simulator {
     private int step;
 
     // Ønsket avstand mellom biler
-    private double distanceBetweenCars= 5.0;
+    private double distanceBetweenCars = 5.0;
 
+    // Sannsynlighet for ny bil (hvis det er plass)
+    private static final double CAR_CREATION_PROBABILITY = 0.5;
+
+    // Antall biler som har kjørt igjennom
+    private static int throughoutput = 0;
+
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     public Simulator() {
 
         // Opprette veisegmenter.
         // Segmenter i rundingen
         for (int i = 0; i < 4; i++) {
-            roadSegments.add(new Road(10, false));
+            roadSegments.add(new Road(4, false));
         }
         // Inn- og utkjøring fra rundingen
         for (int i = 0; i < 4; i++) {
@@ -55,21 +69,23 @@ public class Simulator {
 
         // Loope igjennom alle roadsegments
 
-        System.out.println("\nStep " + step);
+        System.out.println(ANSI_GREEN + "\nStep " + step + ANSI_RESET);
         // Flytte biler mellom segmenter
         for (int i = 0; i < roadSegments.size(); i++) {
-            System.out.println("Flytter biler i segment " + i);
-            carsToMove = roadSegments.get(i).moveCar();
-            System.out.println("Skal flytte " +  carsToMove.size() + " biler");
+            System.out.println("\nBehandler segment " + i);
+            carsToMove = roadSegments.get(i).moveCar(i);
+            if (carsToMove.size() != 0) {
+                System.out.println("Skal flytte " + carsToMove.size() + " biler til annet segment");
+            }
 
             for (int y = 0; y < carsToMove.size(); y++) {
-                System.out.println("Flytter bil nr " + y + " som skal ta exit " + carsToMove.get(y).exitNo + " deb kom fra " + carsToMove.get(y).cameFromSegment);
+                System.out.println("Flytter bil som kom fra segment nr " + carsToMove.get(y).cameFromSegment + " og skal til  " + carsToMove.get(y).exitNo);
                 moveCarBetweenSegments(carsToMove.get(y));
 
             }
 
 
-            if (i > 3){
+            if (i > 3) {
                 // accessroad, forsøke å lage ny bil
                 roadSegments.get(i).makeNewCar(i);
             }
@@ -77,73 +93,106 @@ public class Simulator {
         }
 
 
-
         // TODO skrive statistiske data
 
     }
 
-public void moveCarBetweenSegments(Car thecar){
-    // Hvis neste er en exit
-    thecar.setDistance(0);
+    public void moveCarBetweenSegments(Car thecar) {
+        // Hvis neste er en exit
+        thecar.setDistance(0);
 
-    switch (thecar.cameFromSegment) {
-        case 0:
-            if (thecar.exitNo == 5){
-                // Skal kjøre av her
-                roadSegments.get(5).addCar(thecar);
-            } else {
-                // den skal kjøre videre
-                roadSegments.get(1).addCar(thecar);
-            }
-            break;
-        case 1:
-            if (thecar.exitNo == 6){
-                // Skal kjøre av her
-                roadSegments.get(6).addCar(thecar);
-            } else {
-                // den skal kjøre videre
-                roadSegments.get(2).addCar(thecar);
-            }
-            break;
-        case 2:
-            if (thecar.exitNo == 7){
-                // Skal kjøre av her
-                roadSegments.get(7).addCar(thecar);
-            } else {
-                // den skal kjøre videre
-                roadSegments.get(3).addCar(thecar);
-            }
-            break;
-        case 3:
+        switch (thecar.cameFromSegment) {
+            case 0:
+                if (thecar.exitNo == 5) {
+                    // Skal kjøre av her
+                    thecar.setDrivingOut(true);
+                    roadSegments.get(5).addCar(thecar);
+                    System.out.println("En bil kjørte av til vei 5");
+                } else {
+                    // den skal kjøre videre
+                    roadSegments.get(1).addCar(thecar);
+                }
 
-            if (thecar.exitNo == 4){
-                // Skal kjøre av her
-                roadSegments.get(4).addCar(thecar);
-            } else {
-                // den skal kjøre videre
-                roadSegments.get(0).addCar(thecar);
-            }
-            break;
-        case 4:
-            if (thecar.exitNo == 4){
-                // Skal kjøre av her
-                roadSegments.get(4).addCar(thecar);
-            } else {
-                // den skal kjøre videre
-                roadSegments.get(0).addCar(thecar);
-            }
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
+
+                break;
+            case 1:
+                if (thecar.exitNo == 6) {
+                    // Skal kjøre av her
+                    thecar.setDrivingOut(true);
+                    roadSegments.get(6).addCar(thecar);
+                    System.out.println("En bil kjørte av til vei 6");
+                } else {
+                    // den skal kjøre videre
+                    roadSegments.get(2).addCar(thecar);
+                }
+                break;
+            case 2:
+                if (thecar.exitNo == 7) {
+                    // Skal kjøre av her
+                    thecar.setDrivingOut(true);
+                    roadSegments.get(7).addCar(thecar);
+                    System.out.println("En bil kjørte av til vei 7");
+                } else {
+                    // den skal kjøre videre
+                    roadSegments.get(3).addCar(thecar);
+                }
+                break;
+            case 3:
+
+                if (thecar.exitNo == 4) {
+                    // Skal kjøre av her
+                    thecar.setDrivingOut(true);
+                    roadSegments.get(4).addCar(thecar);
+                    System.out.println("En bil kjørte av til vei 4");
+                } else {
+                    // den skal kjøre videre
+                    roadSegments.get(0).addCar(thecar);
+                }
+                break;
+            case 4:
+                if (thecar.drivingOut) {
+                    // Er ferdig, skal bare slettes, aka ikke gjør noe
+                    System.out.println("En bil kjørte til ende på vei 4 og ble fjernet fra simulering");
+                    throughoutput++;
+                } else {
+                    // den skal inn i rundkjøring
+                    //TODO lage til så den sjekker om det er klart der
+                    roadSegments.get(0).addCar(thecar);
+                }
+                break;
+            case 5:
+                if (thecar.drivingOut) {
+                    // Er ferdig, skal bare slettes, aka ikke gjør noe
+                    System.out.println("En bil kjørte til ende på vei 5 og ble fjernet fra simulering");
+                    throughoutput++;
+                } else {
+                    // den skal inn i rundkjøring
+                    roadSegments.get(1).addCar(thecar);
+                }
+                break;
+            case 6:
+                if (thecar.drivingOut) {
+                    // Er ferdig, skal bare slettes, aka ikke gjør noe
+                    System.out.println("En bil kjørte til ende på vei 6 og ble fjernet fra simulering");
+                    throughoutput++;
+                } else {
+                    // den skal inn i rundkjøring
+                    roadSegments.get(2).addCar(thecar);
+                }
+                break;
+            case 7:
+                if (thecar.drivingOut) {
+                    // Er ferdig, skal bare slettes, aka ikke gjør noe
+                    System.out.println("En bil kjørte til ende på vei 7 og ble fjernet fra simulering");
+                    throughoutput++;
+                } else {
+                    // den skal inn i rundkjøring
+                    roadSegments.get(3).addCar(thecar);
+                }
+                break;
+        }
+
+
     }
-
-
-
-
-}
 
 }
