@@ -12,13 +12,21 @@ public class    Car {
     int distance;
 
     // Aggresivitet. Avhengig av denne tar bilføreren risikoer, kjører fortere, mindre avstand til neste bil..
-    int aggressiveness;
+    double aggressiveness;
 
     int exitNo;
 
     int speed;
 
+    double acceleration;
+
     int cameFromSegment;
+
+    double minDistanceToNextCar;
+
+
+
+
 
     public int getDistance() {
         return distance;

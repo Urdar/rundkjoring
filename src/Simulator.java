@@ -5,6 +5,8 @@ import java.util.ArrayList;
  * Created by jens on 08.04.15.
  */
 
+// TODO Lese oppgavearket. Teste hypotese. F.eks øke farten, vil vi få flere biler igjennom eller færre? F.eks fra 30 til 50 km/t. Om vi øker farten vil biler naturlig prøve å holde lengre avstand..
+// HVORDAN gjøre en hypotesetest og HVORDAN får vi ut nødvendig data
 
 // TODO Justere steps i forhold til tid etc
 // TODO Kontroll på når/hyppighet av nye biler
@@ -14,16 +16,36 @@ import java.util.ArrayList;
 // TODO Grafisk fremstilling
 // TODO Evnt skal kunne simulere "ekte" kjøring, dvs ikke-perfekt kjøring, kanskje en bil kjører inn i rundkjøring på et tidspunkt den ikke burde etc
 
+/*
+        NOTAT fra andre fremvisninger:
+        steps
+        time/steps
+        spawn probalility
+        speed
+        speed variance
+
+        cars in roundabout
+        throughoutput rate
+        throughoutput
+
+        Hans: Kunne kjøre xxx simuleringer (forskjellige parametre) for å sammenligne
+
+*/
+
 public class Simulator {
 
     public static void main(String[] args) {
+
+
         Simulator simulator = new Simulator();
         simulator.simulate(100); // run for xxx steps
         System.out.println("\n" + throughoutput + " biler kjørte gjennom rundkjøringen");
+
+
     }
 
 
-    // List of roadsegments to and from roundAboutSegments
+    // List of roadsegments to and from roundAbout segments
     private ArrayList<Road> roadSegments = new ArrayList<Road>();
 
     // The current step of the simulation.
@@ -72,8 +94,11 @@ public class Simulator {
         System.out.println(ANSI_GREEN + "\nStep " + step + ANSI_RESET);
         // Flytte biler mellom segmenter
         for (int i = 0; i < roadSegments.size(); i++) {
+
             System.out.println("\nBehandler segment " + i);
+
             carsToMove = roadSegments.get(i).moveCar(i);
+
             if (carsToMove.size() != 0) {
                 System.out.println("Skal flytte " + carsToMove.size() + " biler til annet segment");
             }
@@ -93,7 +118,7 @@ public class Simulator {
         }
 
 
-        // TODO skrive statistiske data
+        // TODO skrive statistiske data. Biler i rundkjøring, antall nye biler, antall biler som står stille, gjennomsnittsfart etc etc
 
     }
 
@@ -102,6 +127,7 @@ public class Simulator {
         thecar.setDistance(0);
 
         switch (thecar.cameFromSegment) {
+            // 0-3 er "selve rundingen"
             case 0:
                 if (thecar.exitNo == 5) {
                     // Skal kjøre av her
@@ -149,6 +175,7 @@ public class Simulator {
                     roadSegments.get(0).addCar(thecar);
                 }
                 break;
+            // 4-7 er "innkjøringsveiene"
             case 4:
                 if (thecar.drivingOut) {
                     // Er ferdig, skal bare slettes, aka ikke gjør noe
