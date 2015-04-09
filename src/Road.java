@@ -78,7 +78,7 @@ public class Road {
 
     public boolean isAtSegmentEnd(int currentPosition) {
 
-        if (currentPosition == length) {
+        if (currentPosition >= length) {
             return true;
         } else {
             return false;
