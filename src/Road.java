@@ -27,51 +27,9 @@ public class Road {
 
         for (int i = 0; i < cars.size(); i++) {
             if (isAtSegmentEnd(cars.get(i).getDistance())) {
-                System.out.println("Bilen har nådd enden");
-
-                if (this.accessRoad) {
-                    if (cars.get(i).getDrivingOut()) {
-                        // Den har fullført runden sin, slette den
-                      cars.remove(i);
-                    } else {
-                        // Den har kommet til endes på segment og skal videre
-
-                        returnedCars.add(cars.get(i));
-
-                     cars.remove(i);
-                    }
-
-                } else {
-                // Bilen kjører inni sirkelen og har kommet til endes på segment
-                    // Den skal videre
-                    returnedCars.add(cars.get(i));
-                  cars.remove(i);
-                }
-
-
-
-
-            } else {
-                // Bilen har ikke nådd ende av segment, skal bare kjøre videre
-                // Sjekke om det er plass foran for å flytte fremover
-                System.out.println("Bil " + i + " har distanse " + cars.get(i).getDistance());
-
-                if (true) {
-                    // TODO lage til denne sjekken
-
-                    System.out.println("Kan flytte fremover");
-                    cars.get(i).setDistance(cars.get(i).getDistance() + 1);
-
-                } else {
-                    System.out.println("Kan ikke flytte fremover");
-                }
+                returnedCars.add(cars.get(i));
 
             }
-
-
-            // TODO sjekke om klar bane (avtand til bil fremme, andre segmenter)
-            // TODO sjekke om ende av segment
-
         }
         return returnedCars;
     }
